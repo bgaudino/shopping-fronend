@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Purchased from "./Purchased";
 
+const baseUrl = process.env.REACT_APP_BACKEND_URL;
+
 function App() {
   const [items, setItems] = useState([]);
   const [purchases, setPurchases] = useState([]);
@@ -8,7 +10,7 @@ function App() {
   const [datalist, setDatalist] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/items/")
+    fetch(`${baseUrl}/items/`)
       .then((response) => response.json())
       .then((data) => {
         setItems(data.items);
@@ -20,7 +22,7 @@ function App() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:8000/api/items/", {
+    fetch(`${baseUrl}/items/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +43,7 @@ function App() {
   }
 
   function handleDelete(itemToDelete) {
-    fetch(`http://localhost:8000/api/item/${itemToDelete.id}/`, {
+    fetch(`${baseUrl}/item/${itemToDelete.id}/`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -59,7 +61,7 @@ function App() {
   }
 
   function handlePurchase(itemId) {
-    fetch(`http://localhost:8000/api/item/${itemId}/`, {
+    fetch(`${baseUrl}/item/${itemId}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +79,7 @@ function App() {
   }
 
   function handleRestore(itemId) {
-    fetch(`http://localhost:8000/api/item/${itemId}/`, {
+    fetch(`${baseUrl}/item/${itemId}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
