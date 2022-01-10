@@ -8,6 +8,7 @@ function App() {
   const [purchases, setPurchases] = useState([]);
   const [input, setInput] = useState("");
   const [datalist, setDatalist] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch(`${baseUrl}/items/`)
@@ -18,7 +19,8 @@ function App() {
         setPurchases(data.purchases);
         setDatalist(data.datalist);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   }, []);
 
   async function handleSubmit(e) {
@@ -108,6 +110,8 @@ function App() {
   ).sort((a, b) => new Date(b) - new Date(a));
 
   const itemChoices = datalist.map((item) => item.name.toLowerCase()).sort();
+
+  if (loading) return null;
 
   return (
     <main>
