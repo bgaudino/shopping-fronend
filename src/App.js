@@ -13,6 +13,7 @@ function App() {
     fetch(`${baseUrl}/items/`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.items);
         setItems(data.items);
         setPurchases(data.purchases);
         setDatalist(data.datalist);
@@ -104,7 +105,7 @@ function App() {
         new Date(purchase.purchased_at).toLocaleDateString()
       )
     )
-  );
+  ).sort((a, b) => new Date(b) - new Date(a));
 
   const itemChoices = datalist.map((item) => item.name.toLowerCase()).sort();
 
@@ -130,23 +131,25 @@ function App() {
       <section>
         <h2>To Purchase</h2>
         {!items.length && <p>All done!</p>}
-        {items.map((item, index) => (
-          <div key={item.id} className="row">
-            <span className="item">{item.name}</span>
-            <div className="buttonGroup">
-              <button onClick={() => handlePurchase(item.id)}>
-                {" "}
-                <i className="fas fa-check"></i>
-              </button>
-              <button
-                className="deleteButton"
-                onClick={() => handleDelete(item)}
-              >
-                <i className="fas fa-trash"></i>
-              </button>
+        {items
+          .sort((a, b) => a.id - b.id)
+          .map((item) => (
+            <div key={item.id} className="row">
+              <span className="item">{item.name}</span>
+              <div className="buttonGroup">
+                <button onClick={() => handlePurchase(item.id)}>
+                  {" "}
+                  <i className="fas fa-check"></i>
+                </button>
+                <button
+                  className="deleteButton"
+                  onClick={() => handleDelete(item)}
+                >
+                  <i className="fas fa-trash"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </section>
 
       {purchases.length > 0 && <h2>Recent Purchases</h2>}
@@ -156,9 +159,12 @@ function App() {
           date={date}
           handleRestore={handleRestore}
           handleDelete={handleDelete}
-          items={purchases.filter(
-            (item) => new Date(item.purchased_at).toLocaleDateString() === date
-          )}
+          items={purchases
+            .filter(
+              (item) =>
+                new Date(item.purchased_at).toLocaleDateString() === date
+            )
+            .sort((a, b) => new Date(a.purchased_at) - new Date(b.purchased_at))}
         />
       ))}
     </main>
