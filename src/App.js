@@ -8,7 +8,7 @@ function App() {
   const [purchases, setPurchases] = useState([]);
   const [input, setInput] = useState("");
   const [datalist, setDatalist] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${baseUrl}/items/`)
