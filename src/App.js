@@ -3,8 +3,18 @@ import Purchased from "./Purchased";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
+const stores = [
+  "Whole Foods",
+  "Trader Joes",
+  "Costco",
+  "Jewel-Osco",
+  "Online",
+  "Any",
+];
+
 function App() {
   const [items, setItems] = useState([]);
+  const [store, setStore] = useState("");
   const [purchases, setPurchases] = useState([]);
   const [input, setInput] = useState("");
   const [datalist, setDatalist] = useState([]);
@@ -32,6 +42,7 @@ function App() {
       },
       body: JSON.stringify({
         name: input,
+        store: store,
       }),
     })
       .then((res) => res.json())
@@ -119,12 +130,24 @@ function App() {
       <form onSubmit={handleSubmit}>
         <input
           list="items"
+          placeholder="Add an item"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         <datalist id="items">
           {itemChoices.map((item, index) => (
             <option key={index} value={item} />
+          ))}
+        </datalist>
+        <input
+          value={store}
+          list="stores"
+          placeholder="Add a store"
+          onChange={(e) => setStore(e.target.value)}
+        />
+        <datalist id="stores">
+          {stores.map((store) => (
+            <option key={store} value={store} />
           ))}
         </datalist>
         <button disabled={!input}>
@@ -139,7 +162,7 @@ function App() {
           .sort((a, b) => a.id - b.id)
           .map((item) => (
             <div key={item.id} className="row">
-              <span className="item">{item.name}</span>
+              <span className="item">{item.name} - {item.store}</span>
               <div className="buttonGroup">
                 <button onClick={() => handlePurchase(item.id)}>
                   {" "}
@@ -168,7 +191,9 @@ function App() {
               (item) =>
                 new Date(item.purchased_at).toLocaleDateString() === date
             )
-            .sort((a, b) => new Date(a.purchased_at) - new Date(b.purchased_at))}
+            .sort(
+              (a, b) => new Date(a.purchased_at) - new Date(b.purchased_at)
+            )}
         />
       ))}
     </main>
