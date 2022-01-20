@@ -5,15 +5,6 @@ import StoreDatalist from "./StoreDatalist";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
-const stores = [
-  "Whole Foods",
-  "Trader Joes",
-  "Costco",
-  "Jewel-Osco",
-  "Online",
-  "Any",
-];
-
 function App() {
   const [items, setItems] = useState([]);
   const [store, setStore] = useState("");
