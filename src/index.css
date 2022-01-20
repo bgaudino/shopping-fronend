@@ -78,7 +78,9 @@ form {
   background-color: #24a0ed;
 }
 .item {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 100%;
   white-space: normal;
   overflow: hidden;
@@ -89,4 +91,11 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.store {
+  background: #d19000;
+  padding: 12px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
 }

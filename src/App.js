@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import Item from "./Item";
 import Purchased from "./Purchased";
+import StoreDatalist from "./StoreDatalist";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -49,6 +51,7 @@ function App() {
       .then((data) => {
         setItems((prevState) => [...prevState, data]);
         setInput("");
+        setStore("");
         if (!datalist.map((item) => item.name).includes(input)) {
           setDatalist((prevState) => [...prevState, { name: input }]);
         }
@@ -145,11 +148,7 @@ function App() {
           placeholder="Add a store"
           onChange={(e) => setStore(e.target.value)}
         />
-        <datalist id="stores">
-          {stores.map((store) => (
-            <option key={store} value={store} />
-          ))}
-        </datalist>
+        <StoreDatalist listId="stores" />
         <button disabled={!input}>
           <i className="fas fa-plus"></i>
         </button>
@@ -161,21 +160,12 @@ function App() {
         {items
           .sort((a, b) => a.id - b.id)
           .map((item) => (
-            <div key={item.id} className="row">
-              <span className="item">{item.name} - {item.store}</span>
-              <div className="buttonGroup">
-                <button onClick={() => handlePurchase(item.id)}>
-                  {" "}
-                  <i className="fas fa-check"></i>
-                </button>
-                <button
-                  className="deleteButton"
-                  onClick={() => handleDelete(item)}
-                >
-                  <i className="fas fa-trash"></i>
-                </button>
-              </div>
-            </div>
+            <Item
+              key={item.id}
+              item={item}
+              handleDelete={handleDelete}
+              handlePurchase={handlePurchase}
+            />
           ))}
       </section>
 
