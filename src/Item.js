@@ -4,7 +4,7 @@ import { stores } from "./stores";
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 export default function Item({ item, handlePurchase, handleDelete }) {
-  const [store, setStore] = useState(item.store);
+  const [store, setStore] = useState(item.store || "Any");
   const [name, setName] = useState(item.name);
   const [editStore, setEditStore] = useState(false);
   const [editItem, setEditItem] = useState(false);
