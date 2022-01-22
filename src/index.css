@@ -11,7 +11,8 @@ p {
   text-align: center;
 }
 body,
-input {
+input,
+select {
   font-family: "Permanent Marker", Helvetica, Arial, sans-serif;
 }
 section {
@@ -42,6 +43,16 @@ input {
   font-size: 20px;
   width: 100%;
 }
+
+select {
+  padding: 6px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
+  width: 100%;
+}
+
 div {
   width: 100%;
   display: flex;

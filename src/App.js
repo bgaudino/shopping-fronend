@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Item from "./Item";
 import Purchased from "./Purchased";
-import StoreDatalist from "./StoreDatalist";
+import { stores } from "./stores";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -25,6 +25,19 @@ function App() {
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }, []);
+
+  function refresh() {
+    fetch(`${baseUrl}/items/`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.items);
+        setItems(data.items);
+        setPurchases(data.purchases);
+        setDatalist(data.datalist);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -120,7 +133,12 @@ function App() {
 
   return (
     <main>
-      <h1>Shopping List</h1>
+      <h1>
+        <span style={{ cursor: "pointer" }} onClick={refresh}>
+          🥑
+        </span>{" "}
+        Avocado
+      </h1>
       <form onSubmit={handleSubmit}>
         <input
           list="items"
@@ -133,13 +151,16 @@ function App() {
             <option key={index} value={item} />
           ))}
         </datalist>
-        <input
-          value={store}
-          list="stores"
-          placeholder="Add a store"
-          onChange={(e) => setStore(e.target.value)}
-        />
-        <StoreDatalist listId="stores" />
+        <select value={store} onChange={(e) => setStore(e.target.value)}>
+          <option value="" disabled>
+            Choose a Store
+          </option>
+          {stores.map((storeOption) => (
+            <option key={storeOption[1]} value={storeOption[1]}>
+              {storeOption[0]}
+            </option>
+          ))}
+        </select>
         <button disabled={!input}>
           <i className="fas fa-plus"></i>
         </button>

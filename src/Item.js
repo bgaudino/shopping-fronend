@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StoreDatalist from "./StoreDatalist";
+import { stores } from "./stores";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -18,7 +18,7 @@ export default function Item({ item, handlePurchase, handleDelete }) {
       },
       body: JSON.stringify({
         ...item,
-        store,
+        store: e.target.value,
       }),
     });
     setEditStore(false);
@@ -43,40 +43,47 @@ export default function Item({ item, handlePurchase, handleDelete }) {
   return (
     <div key={item.id} className="row">
       <span className="item">
-        {editItem ? (
-          <form
-            style={{ width: "fit-content" }}
-            onSubmit={handleItemUpdate}
-            onBlur={handleItemUpdate}
-          >
+        {editItem && (
+          <form onSubmit={handleItemUpdate} onBlur={handleItemUpdate}>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              style={{ width: "fit-content" }}
               autoFocus
             />
           </form>
-        ) : (
+        )}
+        {!editItem && !editStore && (
           <span onClick={() => setEditItem(true)} style={{ cursor: "pointer" }}>
             {name}
           </span>
         )}
-        {editStore ? (
-          <form
-            style={{ width: "fit-content" }}
-            onSubmit={handleStoreUpdate}
-            onBlur={handleStoreUpdate}
+        {editStore && (
+          <select
+            value={store}
+            onChange={(e) => {
+              setStore(e.target.value);
+              handleStoreUpdate(e);
+            }}
+            onBlur={() => setEditStore(false)}
+            autoFocus
           >
-            <input
-              value={store}
-              list={`stores-${item.id}`}
-              onChange={(e) => setStore(e.target.value)}
-              style={{ width: "fit-content" }}
-              autoFocus
-            />
-            <StoreDatalist listId={`stores-${item.id}`} />
-          </form>
-        ) : (
+            {stores.map((storeOption) => (
+              <option key={storeOption[1]} value={storeOption[1]}>
+                {storeOption[0]}
+              </option>
+            ))}
+          </select>
+          // <form onSubmit={handleStoreUpdate} onBlur={handleStoreUpdate}>
+          //   <input
+          //     value={store}
+          //     list={`stores-${item.id}`}
+          //     onChange={(e) => setStore(e.target.value)}
+          //     autoFocus
+          //   />
+          //   <StoreDatalist listId={`stores-${item.id}`} />
+          // </form>
+        )}
+        {!editItem && !editStore && (
           <span className="store" onClick={() => setEditStore(true)}>
             {store ? store : "Any"}
           </span>
