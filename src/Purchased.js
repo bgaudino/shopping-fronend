@@ -8,7 +8,7 @@ export default function Purchased({
 }) {
   return (
     <section className="purchased">
-      <h2>{date}</h2>
+      <h2 className="is-size-5">{date}</h2>
       {items.map((item, index) => (
         <div key={item.id} className="row">
           <span className="item">{item.name}</span>

@@ -132,8 +132,8 @@ function App() {
   if (loading) return null;
 
   return (
-    <main>
-      <h1>
+    <main className="p-4">
+      <h1 className="is-size-3 mb-2 mt-2">
         <span style={{ cursor: "pointer" }} onClick={refresh}>
           🥑
         </span>{" "}
@@ -141,7 +141,9 @@ function App() {
       </h1>
       <form onSubmit={handleSubmit}>
         <input
+          autoFocus
           list="items"
+          className="input mb-0"
           placeholder="Add an item"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -151,23 +153,25 @@ function App() {
             <option key={index} value={item} />
           ))}
         </datalist>
-        <select value={store} onChange={(e) => setStore(e.target.value)}>
-          <option value="" disabled>
-            Choose a Store
-          </option>
-          {stores.map((storeOption) => (
-            <option key={storeOption[1]} value={storeOption[1]}>
-              {storeOption[0]}
+        <div className="select is-fullwidth">
+          <select value={store} onChange={(e) => setStore(e.target.value)}>
+            <option value="" disabled>
+              Choose a Store
             </option>
-          ))}
-        </select>
-        <button disabled={!input}>
-          <i className="fas fa-plus"></i>
+            {stores.map((storeOption) => (
+              <option key={storeOption[1]} value={storeOption[1]}>
+                {storeOption[0]}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button className="button green is-fullwidth mt-2" disabled={!input}>
+          <i className="fas fa-plus"></i>&nbsp;Add Item
         </button>
       </form>
 
       <section>
-        <h2>To Purchase</h2>
+        <h2 className="is-size-4">To Purchase</h2>
         {!items.length && <p>All done!</p>}
         {items
           .sort((a, b) => a.id - b.id)
@@ -181,7 +185,7 @@ function App() {
           ))}
       </section>
 
-      {purchases.length > 0 && <h2>Recent Purchases</h2>}
+      {purchases.length > 0 && <h2 className="is-size-4">Recent Purchases</h2>}
       {dates.map((date) => (
         <Purchased
           key={date}

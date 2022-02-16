@@ -1,8 +1,15 @@
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-size: 16px;
   line-height: 1.42857143;
   text-transform: capitalize;
   min-height: 100vh;
+  max-width: 100%;
 }
 h1,
 h2,
@@ -12,7 +19,8 @@ p {
 }
 body,
 input,
-select {
+select,
+.button {
   font-family: "Permanent Marker", Helvetica, Arial, sans-serif;
 }
 section {
@@ -44,37 +52,22 @@ input {
   width: 100%;
 }
 
-select {
-  padding: 6px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 20px;
-  width: 100%;
-}
-
 div {
   width: 100%;
   display: flex;
 }
+
 button {
   cursor: pointer;
   background-color: #00ab66;
   color: white;
   border: none;
   padding: 10px;
-  margin-left: 10px;
   height: 3rem;
   width: 3rem;
   display: grid;
   place-items: center;
   border-radius: 4px;
-}
-form {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .deleteButton {
   background-color: #d11a2a;
@@ -97,11 +90,13 @@ form {
   overflow: hidden;
   text-overflow: ellipsis;
   padding-left: 2rem;
+  padding-right: 0.5rem;
 }
 .buttonGroup {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 }
 .store {
   background: #d19000;
@@ -109,4 +104,12 @@ form {
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+}
+
+.green {
+  background: #00ab66 !important;
+}
+
+.green, .green:hover {
+  color: #fff !important;
 }

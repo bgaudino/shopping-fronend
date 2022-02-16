@@ -46,6 +46,7 @@ export default function Item({ item, handlePurchase, handleDelete }) {
         {editItem && (
           <form onSubmit={handleItemUpdate} onBlur={handleItemUpdate}>
             <input
+              className="input is-fullwidth"
               value={name}
               onChange={(e) => setName(e.target.value)}
               autoFocus
@@ -58,21 +59,23 @@ export default function Item({ item, handlePurchase, handleDelete }) {
           </span>
         )}
         {editStore && (
-          <select
-            value={store}
-            onChange={(e) => {
-              setStore(e.target.value);
-              handleStoreUpdate(e);
-            }}
-            onBlur={() => setEditStore(false)}
-            autoFocus
-          >
-            {stores.map((storeOption) => (
-              <option key={storeOption[1]} value={storeOption[1]}>
-                {storeOption[0]}
-              </option>
-            ))}
-          </select>
+          <div className="select is-fullwidth">
+            <select
+              value={store}
+              onChange={(e) => {
+                setStore(e.target.value);
+                handleStoreUpdate(e);
+              }}
+              onBlur={() => setEditStore(false)}
+              autoFocus
+            >
+              {stores.map((storeOption) => (
+                <option key={storeOption[1]} value={storeOption[1]}>
+                  {storeOption[0]}
+                </option>
+              ))}
+            </select>
+          </div>
           // <form onSubmit={handleStoreUpdate} onBlur={handleStoreUpdate}>
           //   <input
           //     value={store}
