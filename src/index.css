@@ -22,7 +22,7 @@ body,
 input,
 select,
 .button {
-  font-family: "Permanent Marker", Helvetica, Arial, sans-serif;
+  font-family: 'Permanent Marker', Helvetica, Arial, sans-serif;
 }
 section {
   color: #000;
@@ -51,11 +51,6 @@ input {
   border-radius: 4px;
   font-size: 20px;
   width: 100%;
-}
-
-div {
-  width: 100%;
-  display: flex;
 }
 
 button {
@@ -111,6 +106,7 @@ button {
   background: #00ab66 !important;
 }
 
-.green, .green:hover {
+.green,
+.green:hover {
   color: #fff !important;
 }
